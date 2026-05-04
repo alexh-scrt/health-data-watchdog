@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "health-data-watchdog"
+version = "0.1.0"
+description = "A CLI tool that periodically fetches public health surveillance datasets and diffs them against cached snapshots to detect changes."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Health Data Watchdog Contributors" }
+]
+keywords = ["health", "surveillance", "CDC", "WHO", "diff", "watchdog", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "click>=8.1",
+    "requests>=2.31",
+    "deepdiff>=6.7",
+    "pandas>=2.1",
+    "rich>=13.7",
+    "schedule>=1.2",
+    "tomli>=2.0; python_version < '3.11'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "responses>=0.24",
+]
+
+[project.scripts]
+health-watchdog = "health_data_watchdog.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/example/health-data-watchdog"
+BugTracker = "https://github.com/example/health-data-watchdog/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["health_data_watchdog*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--tb=short -v"
+
+[tool.coverage.run]
+source = ["health_data_watchdog"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
